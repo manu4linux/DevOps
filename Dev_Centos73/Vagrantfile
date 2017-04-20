@@ -132,28 +132,53 @@ docker run hello-world || echo "docker run fail" ;
 sudo systemctl enable docker || echo "systemctl fail" ;
 sleep 2
 exit
-SCRIPT  
-  
+SCRIPT
 
-$script_pois = <<SCRIPT
-set -e 
+
+$script_pris = <<SCRIPT
+set -e
 set -x
-echo "hello"
+echo "hello; nothing to do in pre install"
 uname -a
-##sudo ptiagent-cmd --install ##commented out##
-ln -s /vagrant ~/START_HERE || echo "ln link fail" ; 
-ln -s /vagrant /home/vagrant/START_HERE || echo "ln link fail" ;
 exit
 SCRIPT
 
 
-  #config.vm.provision "run_pre_install_steps", type: "shell", inline: $script_pris
+$script_pois = <<SCRIPT
+set -e
+set -x
+echo "hello"
+uname -a
+##sudo ptiagent-cmd --install ##commented out##
+ln -s /devops  /home/vagrant/START_HERE || echo "ln link fail" ;
+ln -s /vagrant /home/vagrant/THIS_VAGRANT || echo "ln link fail" ;
+exit
+SCRIPT
+
+
+$script_always_run = <<SCRIPT
+set -e
+set -x
+echo "hello; nothing to do in always run after post install"
+uname -a
+exit
+SCRIPT
+
+
+  ####################################################################################
+  config.vm.provision "run_pre_install_steps", type: "shell", inline: $script_pris
   ####################################################################################
   config.vm.provision "run_install_dev_tools", type: "shell", inline: $script_ydt
   config.vm.provision "install_docker_ce_tools", type: "shell", inline: $script_idok
   config.vm.provision "start_docker_ce", type: "shell", inline: $script_sdok
   ####################################################################################
   config.vm.provision "run_post_install_steps", type: "shell", inline: $script_pois
+  ####################################################################################
+
+  ####################################################################################
+  config.vm.provision "always_run", type: "shell", run: "always", inline: $script_always_run
+
+  config.vm.synced_folder "../../devops","/devops"
 
 
 end
