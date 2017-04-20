@@ -79,18 +79,6 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 
-$script_aop = <<SCRIPT
-set -e 
-set -x
-echo "hello"
-uname -a
-sudo ptiagent-cmd --install
-ln -s /vagrant ~/START_HERE || echo "ln link fail" ; 
-ln -s /vagrant /home/vagrant/START_HERE || echo "ln link fail" ;
-exit
-SCRIPT
-
-
 $script_ydt = <<SCRIPT
 set -e 
 set -x
@@ -144,13 +132,28 @@ docker run hello-world || echo "docker run fail" ;
 sudo systemctl enable docker || echo "systemctl fail" ;
 sleep 2
 exit
+SCRIPT  
+  
+
+$script_pois = <<SCRIPT
+set -e 
+set -x
+echo "hello"
+uname -a
+##sudo ptiagent-cmd --install ##commented out##
+ln -s /vagrant ~/START_HERE || echo "ln link fail" ; 
+ln -s /vagrant /home/vagrant/START_HERE || echo "ln link fail" ;
+exit
 SCRIPT
 
 
+  #config.vm.provision "run_pre_install_steps", type: "shell", inline: $script_pris
+  ####################################################################################
   config.vm.provision "run_install_dev_tools", type: "shell", inline: $script_ydt
   config.vm.provision "install_docker_ce_tools", type: "shell", inline: $script_idok
   config.vm.provision "start_docker_ce", type: "shell", inline: $script_sdok
-  config.vm.provision "run_parallels_tools", type: "shell", inline: $script_aop
+  ####################################################################################
+  config.vm.provision "run_post_install_steps", type: "shell", inline: $script_pois
 
 
 end
