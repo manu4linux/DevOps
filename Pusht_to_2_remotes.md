@@ -1,6 +1,7 @@
 $ git remote add all git@github.com:manu4linux/DevOps.git
 
 $  git config -l | grep '^remote\.'
+
 `
 remote.github.url=git@github.comcast.com:mpaduri/DevOps.git
 remote.github.fetch=+refs/heads/*:refs/remotes/origin/*
@@ -15,6 +16,7 @@ $ git remote set-url --add --push all git@github.comcast.com:mpaduri/DevOps.git
 $ git remote set-url --add --push all git@github.com:manu4linux/DevOps.git
 
 $  git config -l | grep '^remote\.'
+
 `
 remote.github.url=git@github.comcast.com:mpaduri/DevOps.git
 remote.github.fetch=+refs/heads/*:refs/remotes/origin/*
@@ -27,6 +29,7 @@ remote.all.pushurl=git@github.com:manu4linux/DevOps.git
 `
 
 $  git push all master
+
 `
 Counting objects: 3, done.
 Delta compression using up to 8 threads.
