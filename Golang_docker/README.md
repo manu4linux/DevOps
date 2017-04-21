@@ -7,12 +7,12 @@ ps -axf  |  grep test-golang
 
 Goto `golang_docker` folder and execute below docker commands.
 ```text
-cd  golang_docker
+cd  golang_docker/src
 ```
 
 Create new image #
 ```text
-docker build -t test-golang  . 
+docker build -t test-golang  ../ 
 ```
      
 Run the Image we just created #
