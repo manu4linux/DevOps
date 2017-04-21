@@ -1,24 +1,19 @@
 How to start:
 
-Don't start if the server is already running in a docker
-```text
-ps -axf  |  grep test-golang
-```
 
-Goto `golang_docker` folder and execute below docker commands.
+Goto `Golang_docker` folder and execute below docker commands.
 ```text
-cd  golang_docker/src
+cd  Golang_docker
 ```
 
 Create new image #
 ```text
-docker build -t test-golang  ../ 
+docker build -t my-golang-app .
 ```
      
 Run the Image we just created #
 ```text
-docker run     \
-        --volume=~/go_dok_data:/data   \
-        --volume=~/go_dok_logs:/logs \
-        test-golang
+docker run -it --rm --name my-running-app my-golang-app
 ``` 
+
+should see `hello, world`
