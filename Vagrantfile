@@ -151,7 +151,6 @@ echo "hello"
 uname -a
 ##sudo ptiagent-cmd --install ##commented out##
 ln -s /devops  /home/vagrant/START_HERE || echo "ln link fail" ;
-ln -s /vagrant /home/vagrant/THIS_VAGRANT || echo "ln link fail" ;
 exit
 SCRIPT
 
@@ -178,7 +177,7 @@ SCRIPT
   ####################################################################################
   config.vm.provision "always_run", type: "shell", run: "always", inline: $script_always_run
 
-  config.vm.synced_folder "../../devops","/devops"
+  config.vm.synced_folder "./","/devops"
 
 
 end
